@@ -7,6 +7,9 @@
 \*------------------------------------*/
 
 :root {
+    --global-font: 'Work Sans', sans-serif;
+    --primary-color: #cce7ff;
+    --secondary-color: #0f3557;
     /* colors */
 
     /* opacity */
@@ -25,12 +28,20 @@
 */
 
 html {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: var(--global-font);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "zero"1;
+    height: 100%;
+}
+
+body {
+    height: 100%;
 }
 
 *,
@@ -249,7 +260,10 @@ input::placeholder {
 */
 
 .c-logo {
-
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: none;
 }
 
 /*
@@ -259,11 +273,14 @@ input::placeholder {
 */
 
 .c-sun {
-
+    width: 22px;
+    height: 22px;
+    margin-top: 12px;
+    fill: var(--secondary-color);
 }
 
 .c-logo .c-sun {
-
+    margin-right: 8px;
 }
 
 /*
@@ -271,12 +288,79 @@ input::placeholder {
     ---
     Main app wrapper
 */
+.c-app {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 500px;
+}
+
+.c-app__summary {
+    font-size: 28px;
+    line-height: 40px;
+
+}
 
 /*
     Component: Horizon
     ---
     Horizon with sun visualisation
 */
+.c-horizon {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.c-horizon__line {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--secondary-color);
+    line-height: 14px;
+    padding-bottom: 20px;
+}
+
+.c-horizon__time {
+    padding-top: 10px;
+    font-size: 12px;
+}
+
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    padding-top: 24px;
+    padding-right: 40px;
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+
+.c-horizon__sun {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    transform: translatey(22px);
+}
+
+.c-horizon__sun::before {
+    content: attr(data-time);
+    display: block;
+    padding-top: 10px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 14px;
+}
 
 /*------------------------------------*\
 #UTILITIES
@@ -286,6 +370,9 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
+.u-muted {
+    opacity: 0.6;
+}
 
 /*------------------------------------*\
 #STATES
@@ -309,6 +396,7 @@ input::placeholder {
 */
 
 @media print {
+
     *,
     *:before,
     *:after {
@@ -319,16 +407,20 @@ input::placeholder {
         box-shadow: none !important;
         text-shadow: none !important;
     }
+
     a,
     a:visited {
         text-decoration: underline;
     }
+
     a[href]:after {
-        content: " (" attr(href) ")";
+        content: " ("attr(href) ")";
     }
+
     abbr[title]:after {
-        content: " (" attr(title) ")";
+        content: " ("attr(title) ")";
     }
+
     /*
     * Don't show links that are fragment identifiers,
     * or use the `javascript:` pseudo protocol
@@ -337,14 +429,17 @@ input::placeholder {
     a[href^="javascript:"]:after {
         content: "";
     }
+
     pre {
         white-space: pre-wrap !important;
     }
+
     pre,
     blockquote {
         border: 1px solid #999;
         page-break-inside: avoid;
     }
+
     /*
     * Printing Tables:
     * http://css-discuss.incutio.com/wiki/Printing_Tables
@@ -352,18 +447,29 @@ input::placeholder {
     thead {
         display: table-header-group;
     }
+
     tr,
     img {
         page-break-inside: avoid;
     }
+
     p,
     h2,
     h3 {
         orphans: 3;
         widows: 3;
     }
+
     h2,
     h3 {
         page-break-after: avoid;
     }
+}
+
+@media(prefers-color-scheme: dark) {
+    .is-night {
+        --primary-color: #0f3557;
+        --secondary-color: #cce7ff;
+    }
+
 }
